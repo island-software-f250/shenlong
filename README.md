@@ -1,0 +1,4 @@
+## Shenlong Service
+<img src="shenlong.gif">
+
+Shenlong é um serviço especializado em receber pedidos de forma eficiente e confiável. Com uma abordagem ágil e orientada para o cliente, a plataforma Shenlong simplifica o processo de solicitação, proporcionando uma experiência fácil e intuitiva para os usuários. Seja para produtos ou serviços, o Shenlong atua como um intermediário confiável, garantindo que os pedidos sejam recebidos de maneira organizada e entregues aos fornecedores ou prestadores de serviços correspondentes. Com uma interface amigável, o Shenlong visa otimizar a comunicação entre clientes e provedores, facilitando a gestão de pedidos e promovendo uma experiência positiva para ambas as partes envolvidas.
