@@ -1,8 +1,11 @@
 package com.islandsoftwaref250.shenlong.service;
 
+import com.islandsoftwaref250.shenlong.exceptions.OrderSaveException;
 import com.islandsoftwaref250.shenlong.models.Order;
 import com.islandsoftwaref250.shenlong.repositories.OrderRepository;
 import com.islandsoftwaref250.shenlong.request.OrderRequest;
+import com.islandsoftwaref250.shenlong.response.OrderResponse;
+import com.islandsoftwaref250.shenlong.service.producer.KafkaProducer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +18,12 @@ import java.util.UUID;
 public class OrderService {
 
     @Autowired
+    private KafkaProducer producer;
+
+    @Autowired
     private OrderRepository repository;
 
-    public Order register(OrderRequest request) {
+    public OrderResponse register(OrderRequest request) throws OrderSaveException{
         var order = new Order();
         var uuid = UUID.randomUUID();
 
@@ -27,9 +33,12 @@ public class OrderService {
 
         repository.save(order);
 
-        var optional = repository.findById(uuid);
+        producer.sendMessage(order);
 
-        return optional.get();
+        var optional = repository.findById(uuid);
+        return optional
+                .map(o -> new OrderResponse(o.getId(), o.getDate()))
+                .orElseThrow(() -> new OrderSaveException("Sorry! Error registering the order."));
     }
 
 
